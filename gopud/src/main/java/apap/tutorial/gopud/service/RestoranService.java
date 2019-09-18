@@ -13,4 +13,6 @@ public interface RestoranService {
     // Method untuk mendapatkan sebuah Restoran berdasarkan idRestoran
     RestoranModel getRestoranByIdRestoran(String idRestoran);
 
+    // Method untuk menghapus Restoran berdasarkan idRestoran
+    void deleteRestoran(RestoranModel restoran);
 }

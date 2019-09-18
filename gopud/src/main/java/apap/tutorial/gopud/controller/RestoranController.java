@@ -109,4 +109,25 @@ public class RestoranController {
         // Return view template
         return "update-message";
     }
+
+    // URL mapping delete with PathVariable
+    @RequestMapping("/restoran/delete/id/{idRestoran}")
+    public String deletePath(
+            // Value yang dimasukkan untuk PathVariable
+            @PathVariable(value = "idRestoran") String idRestoran, Model model
+    ){
+        {
+            // Mengambil objek RestoranModel yang dituju
+            RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran);
+
+            // Menghapus Restoran dari list
+            restoranService.deleteRestoran(restoran);
+
+            // Add model Restoran ke "resto" untuk dirender
+            model.addAttribute("resto", restoran);
+
+            // Return View Template
+            return "delete-restoran";
+        }
+    }
 }
