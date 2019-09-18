@@ -86,4 +86,27 @@ public class RestoranController {
         // Return view template
         return "viewall-restoran";
     }
+
+    // URL mapping update nomorTelepon
+    @RequestMapping("/restoran/update/id-restoran/{idRestoran}/nomor-telepon/{nomorTelepon}")
+    public String updatePath(
+            // Value yang dimasukkan untuk PathVariable
+            @PathVariable(value = "idRestoran") String idRestoran,
+            @PathVariable(value = "nomorTelepon") Integer nomorTelepon,
+            Model model
+    ){
+        // Mengambil objek RestoranModel yang dituju
+        RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran);
+
+        // Update nomor telepon Restoran yang dituju
+        if(restoran != null){
+            restoran.setNomorTelepon(nomorTelepon);
+        }
+
+        // Add model Restoran ke "resto" untuk dirender
+        model.addAttribute("resto", restoran);
+
+        // Return view template
+        return "update-message";
+    }
 }
