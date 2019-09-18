@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -53,6 +54,24 @@ public class RestoranController {
 
         // Return View Template
         return "view-restoran";
+    }
+
+    // URL mapping view with PathVariable
+    @RequestMapping("/restoran/view/id-restoran/{idRestoran}")
+    public String viewPath(
+            // Value yang dimasukkan untuk PathVariable
+            @PathVariable(value = "idRestoran") String idRestoran, Model model
+    ){
+        {
+            // Mengambil objek RestoranModel yang dituju
+            RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran);
+
+            // Add model Restoran ke "resto" untuk dirender
+            model.addAttribute("resto", restoran);
+
+            // Return View Template
+            return "view-restoran";
+        }
     }
 
     // URL mapping viewAll
