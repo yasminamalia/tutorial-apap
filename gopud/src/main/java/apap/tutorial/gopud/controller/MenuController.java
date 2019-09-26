@@ -44,7 +44,7 @@ public class MenuController {
     //API yang digunakan untuk menuju halaman form change restoran
     @RequestMapping(value = "menu/change/{id}", method = RequestMethod.GET)
     public String changeMenuFormPage(@PathVariable Long id, Model model){
-        //Mengambil existing data restoran
+        //Mengambil existing data menu
         MenuModel existingMenu = menuService.getMenuByIdMenu(id).get();
         model.addAttribute("menu", existingMenu);
 
@@ -63,7 +63,14 @@ public class MenuController {
     //Delete Menu
     @RequestMapping(value = "menu/delete/{id}", method = RequestMethod.GET)
     public String deleteMenuPage(@PathVariable Long id, @ModelAttribute MenuModel menu, Model model){
-        //Mengambil existing data menu
-        MenuModel
+        MenuModel deleteMenu = menuService.getMenuByIdMenu(id).get();
+        if (deleteMenu != null){
+            model.addAttribute("menu", deleteMenu.getNama());
+            menuService.deleteMenu(menu);
+
+            return "delete-menu";
+        }else{
+            return "error";
+        }
     }
 }

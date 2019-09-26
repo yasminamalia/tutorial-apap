@@ -17,4 +17,7 @@ public interface MenuService {
 
     // Method untuk mengganti menu
     MenuModel changeMenu(MenuModel menuModel);
+
+    // Method untuk menghapus menu
+    void deleteMenu(MenuModel menuModel);
 }

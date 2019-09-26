@@ -45,4 +45,11 @@ public class MenuServiceImpl implements MenuService {
         }
     }
 
+    @Override
+    public void deleteMenu(MenuModel menuModel){
+        // Mengambil object yang ingin dihapus
+        MenuModel targetMenu = menuDB.findById(menuModel.getId()).get();
+        // Menghapus object dari database
+        menuDB.delete(targetMenu);
+    }
 }
