@@ -105,6 +105,22 @@ public class RestoranController {
         return "change-restoran";
     }
 
+    //Delete Restoran
+    @RequestMapping(value = "restoran/delete/{idRestoran}")
+    public String deleteRestoran(@PathVariable Long idRestoran, Model model){
+        RestoranModel deleteRestoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
+        if (deleteRestoran == null){
+            return "error";
+        }else{
+            if(deleteRestoran.getListMenu().isEmpty()){
+                model.addAttribute("restoran", deleteRestoran.getNama());
+                restoranService.deleteRestoran(deleteRestoran);
+                return "delete-restoran";
+            }
+            return "delete-restoran-message";
+        }
+    }
+
 //    @Autowired
 //    private RestoranService restoranService;
 //

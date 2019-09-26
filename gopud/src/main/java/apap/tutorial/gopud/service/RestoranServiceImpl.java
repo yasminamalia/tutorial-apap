@@ -45,4 +45,9 @@ public class RestoranServiceImpl implements RestoranService {
             return null;
         }
     }
+
+    @Override
+    public void deleteRestoran(RestoranModel restoranModel){
+        restoranDb.delete(restoranModel);
+    }
 }

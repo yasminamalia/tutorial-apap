@@ -5,16 +5,7 @@
     <title>Delete Restoran</title>
 </head>
 <body>
-<!-- Jika Restoran berhasil dihapus -->
-<div th:if="${resto != null}">
-    <h1 th:text="'SELAMAT!!!!'"></h1>
-    <h2 th:text="'Restoran berhasil dihapus dari sistem :)'"></h2>
-</div>
-
-<!-- Jika idRestoran tidak ditemukan -->
-<div th:unless="${resto != null}">
-    <h1 th:text="'OOPS!!!!'"></h1>
-    <h2 th:text="'Nomor ID tidak ditemukan. Proses delete dibatalkan oleh sistem'"></h2>
-</div>
+<h1 th:text="'SELAMAT!!!!'"></h1>
+<h2 th:text="'Restoran berhasil dihapus dari sistem :)'"></h2>
 </body>
 </html>

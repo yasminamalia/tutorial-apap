@@ -19,5 +19,5 @@ public interface RestoranService {
     RestoranModel changeRestoran(RestoranModel restoranModel);
 
     // Method untuk menghapus Restoran berdasarkan idRestoran
-//    void deleteRestoran(RestoranModel restoran);
+    void deleteRestoran(RestoranModel restoranModel);
 }
