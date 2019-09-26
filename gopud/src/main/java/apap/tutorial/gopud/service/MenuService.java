@@ -3,6 +3,7 @@ package apap.tutorial.gopud.service;
 import apap.tutorial.gopud.model.MenuModel;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface MenuService {
     // Method untuk menambahkan menu ke restoran
@@ -10,4 +11,10 @@ public interface MenuService {
 
     // Method untuk melihat semua menu berdasarkan idRestoran
     List<MenuModel> findAllMenuByIdRestoran(Long idRestoran);
+
+    // Method untuk mendapatkan sebuah Menu berdasarkan id
+    Optional<MenuModel> getMenuByIdMenu(Long id);
+
+    // Method untuk mengganti menu
+    MenuModel changeMenu(MenuModel menuModel);
 }
