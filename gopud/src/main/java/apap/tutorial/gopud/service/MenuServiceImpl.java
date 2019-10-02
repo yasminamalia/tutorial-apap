@@ -5,6 +5,7 @@ import apap.tutorial.gopud.repository.MenuDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,5 +52,10 @@ public class MenuServiceImpl implements MenuService {
         MenuModel targetMenu = menuDB.findById(menuModel.getId()).get();
         // Menghapus object dari database
         menuDB.delete(targetMenu);
+    }
+
+    @Override
+    public List<MenuModel> getListMenuOrderByHargaAsc(Long idRestoran){
+        return menuDB.findByRestoranIdRestoranOrderByHargaAsc(idRestoran);
     }
 }
