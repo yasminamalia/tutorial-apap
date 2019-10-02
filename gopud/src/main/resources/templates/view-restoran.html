@@ -24,17 +24,33 @@
 <td><a th:href="@{/restoran/delete/}+${resto.idRestoran}">Delete Restoran</a></td>
 
 <h2>Daftar Menu:</h2>
+<table>
+    <thead>
+    <tr>
+        <th>No</th>
+        <th>Id Menu</th>
+        <th>Nama</th>
+        <th>Harga</th>
+        <th>Deskripsi</th>
+        <th>Durasi Penyajian</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="menu, iterationStatus : *{menuList}"
+        th:style="${iterationStatus.even} ? 'color:blue'">
+        <td th:text="${iterationStatus.count}"> </td>
+        <td th:text="${menu.id}"> </td>
+        <td th:text="${menu.nama}"> </td>
+        <td th:if="${menu.harga} >= 10000">Di atas 10k </td>
+        <td th:unless="${menu.harga} >= 10000">Di bawah 10k </td>
+        <td th:text="${menu.deskripsi}"> </td>
+        <td th:text="${menu.durasiMasak}"> </td>
 
-<div th:each="menu : ${menuList}">=
-    <h3 th:text="'Nama: '+ ${menu.nama}"> </h3>
-    <h3 th:text="'Harga: '+ ${menu.harga}"> </h3>
-    <h3 th:text="'Deskripsi: '+ ${menu.deskripsi}"> </h3>
-    <h3 th:text="'Durasi Penyajian: ' + ${menu.durasiMasak}"> </h3>
-
-    <td><a th:href="@{/menu/change/}+${menu.id}">Change Menu</a></td>
-    <td><a th:href="@{/menu/delete/}+${menu.id}">Delete Menu</a></td>
-    </br>
-</div>
+        <td><a th:href="@{/menu/change/}+${menu.id}">Change Menu</a></td>
+        <td><a th:href="@{/menu/delete/}+${menu.id}">Delete Menu</a></td>
+    </tr>
+    </tbody>
+</table>
 
 <td><a th:href="@{/menu/add/}+${resto.idRestoran}">Add Menu</a></td>
 
