@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Change Data Menu</title>
+</head>
+<body>
+<h2>Change Data Menu</h2>
+<form th:action="@{/menu/change/{id}(id=${menu.id})}" th:object="${menu}" method="POST">
+    <input type="hidden" th:field="${menu.id}"/>
+    Nama Menu: <br>
+    <input type="text" name="nama" th:value="${menu.nama}"/>
+    <br>
+    Harga: <br>
+    <input type="number" name="harga" th:value="${menu.harga}"/>
+    <br>
+    Deskripsi: <br>
+    <input type="text" name="deskripsi" th:value="${menu.deskripsi}"/>
+    <br>
+    Durasi Penyajian: <br>
+    <input type="number" name="durasiMasak" th:value="${menu.durasiMasak}">
+    <br>
+
+    <br><br>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>
