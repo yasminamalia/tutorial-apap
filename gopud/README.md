@@ -44,9 +44,13 @@ Ketika 2 entitas memiliki hubungan, ketika suatu entitas mengalami perubahan mak
 
 ## Tutorial 5
 Pertanyaan 1 :
+* Saya belajar mengenai bagaimana membuat fragment pada thymeleaf menjadi dinamis dengan melakukan reuse kode.
+* Tahapan: Pertama saya mendefinisikan variabel 'title' pada navbar di fragment.html yang mana nantinya variabel ini akan di-replace sesuai dengan title yang saya tulis di navbar pada body di tiap-tiap html.
 
 Pertanyaan 2 :
+* Saya belajar mengenai cara menggunakan method POST dengan params, menambahkan row pada form menu, dan menghapus row pada form menu.
+* Tahapan: Pertama saya mengubah sedikit method add menu. Lalu saya membuat method addRow dan removeRow. Kemudian saya mengubah view form add menu di html agar dapat menambah dan menghapus row sesuai index.
 
 Pertanyaan 3 : th:include menambahkan konten dari specified fragment pada host tag (kecuali tag fragment) sedangkan th:replacement mengganti host tag dengan konten milik fragment (termasuk tag fragment)
 
-Pertanyaan 4 : 
+Pertanyaan 4 : th:object digunakan di dalam tag form. th:object akan mendefinisikan variabel yang akan digunakan untuk memanggil objek ke dalam form yang kita buat.
