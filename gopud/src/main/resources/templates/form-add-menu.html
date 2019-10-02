@@ -32,7 +32,7 @@
             <td><input type="number" name="harga" th:field="*{listMenu[__${rowStat.index}__].harga}"></td>
             <td><input type="number" name="durasiMasak" th:field="*{listMenu[__${rowStat.index}__].durasiMasak}"></td>
             <td>
-                <button type="submit" class="btn btn-primary" name="removeRow">Remove Menu</button>
+                <button type="submit" class="btn btn-primary" name="removeRow" th:value="${rowStat.index}">Remove Menu</button>
             </td>
         </tr>
         </tbody>
