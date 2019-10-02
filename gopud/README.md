@@ -19,7 +19,7 @@ Pertanyaan 2: Method addRestoranPage memakai RequestMethod GET, hal ini dikarena
 
 Pertanyaan 3: JPA Repository berfungsi untuk persisting objek java ke dalam database, mengakses objek, melakukan define pada data, dan query data.
 
-Pertanyaan 4:
+Pertanyaan 4: 
 * Pada RetoranModel
     @OneToMany(mappedBy = "restoran", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<MenuModel> listMenu;
@@ -41,3 +41,12 @@ Ketika 2 entitas memiliki hubungan seperti OneToMany, ketika sebuah entitas dipa
 Ketika 2 entitas memiliki hubungan seperti ManyToOne, ketika sebuah entitas dipanggil makan entitas yang lain pasti ikut dipanggil juga. Misalnya ketika sistem menampilkan menu, maka restoran yang memiliki menu tersebut juga akan ditampilkan.
 * CascadeType.ALL
 Ketika 2 entitas memiliki hubungan, ketika suatu entitas mengalami perubahan maka entitas lain juga akan berubah.
+
+## Tutorial 5
+Pertanyaan 1 :
+
+Pertanyaan 2 :
+
+Pertanyaan 3 : th:include menambahkan konten dari specified fragment pada host tag (kecuali tag fragment) sedangkan th:replacement mengganti host tag dengan konten milik fragment (termasuk tag fragment)
+
+Pertanyaan 4 : 
