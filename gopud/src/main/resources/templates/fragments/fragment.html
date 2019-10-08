@@ -20,6 +20,7 @@
 </head>
 <body>
 <nav th:fragment="navbar (title)" class="navbar navbar-expand-lg navbar-light bg-light">
+    <img th:src="@{/img/Gopud_Logo.png}" style="width: 50px; padding-right: 10px">
     <a class="navbar-brand" href="#" th:text="${title}">Tutorial APAP</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,6 +32,12 @@
         </div>
     </div>
 </nav>
-</body>
 
+<footer th:fragment="footer (title)" class="footer modal-footer fixed-bottom">
+    <div class="container text-center">
+        <div th:text="'This is the footer of '+ ${title} + ' page'"> </div>
+        <div> Made With Love </div>
+    </div>
+</footer>
+</body>
 </html>
