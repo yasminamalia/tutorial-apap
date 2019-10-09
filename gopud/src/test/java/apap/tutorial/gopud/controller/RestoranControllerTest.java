@@ -107,4 +107,18 @@ public class RestoranControllerTest {
                 .andExpect(MockMvcResultMatchers.view().name("add-restoran"))
                 .andExpect(model().attribute("namaResto", is(nama)));
     }
+
+    @Test
+    public void whenViewRestoranByIdAccessItShouldReturnRestoranById() throws Exception{
+        RestoranModel dummyRestoranModel = generateDummyRestoranModel(1);
+        when(restoranService.getRestoranByIdRestoran(1L)).thenReturn(Optional.of(dummyRestoranModel));
+
+        mockMvc.perform(get("/restoran/view?idRestoran=1"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(content().string(Matchers.containsString("Informasi Restoran")))
+                .andExpect(content().string(Matchers.containsString("ID Restoran")))
+                .andExpect(model().attribute("resto", is(dummyRestoranModel)));
+
+        verify(restoranService, times(1)).getRestoranByIdRestoran(1L);
+    }
 }
