@@ -20,4 +20,7 @@ public interface MenuService {
 
     // Method untuk menghapus menu
     void deleteMenu(MenuModel menuModel);
+
+    // Method untuk mendapatkan menu berdasarkan harga asc
+    List<MenuModel> getListMenuOrderByHargaAsc(Long idRestoran);
 }

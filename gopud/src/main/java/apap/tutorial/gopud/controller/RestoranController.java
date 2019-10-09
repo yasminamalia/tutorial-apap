@@ -55,11 +55,12 @@ public class RestoranController {
         //Mengambil objek RestoranModel yang dituju
         RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
 
+        List<MenuModel> menuList = menuService.getListMenuOrderByHargaAsc(restoran.getIdRestoran());
+        restoran.setListMenu(menuList);
+
         //Add model restoran ke "resto" untuk dirender
         model.addAttribute("resto", restoran);
-
-        List<MenuModel> menuList = menuService.findAllMenuByIdRestoran(restoran.getIdRestoran());
-        model.addAttribute("menuList", menuList);
+        model.addAttribute("listMenu", menuList);
 
         //Return view template
         return "view-restoran";

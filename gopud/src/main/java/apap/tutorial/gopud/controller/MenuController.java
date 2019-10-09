@@ -8,10 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 
 @Controller
 public class MenuController {
@@ -22,21 +26,54 @@ public class MenuController {
     @Autowired
     RestoranService restoranService;
 
+    // API yang digunakan untuk menuju halaman form-add-restoran
     @RequestMapping(value = "/menu/add/{idRestoran}", method = RequestMethod.GET)
     private String addProductFormPage(@PathVariable(value = "idRestoran") Long idRestoran, Model model){
         MenuModel menu = new MenuModel();
         RestoranModel restoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
-        menu.setRestoran(restoran);
+        restoran.setListMenu(new ArrayList<MenuModel>());
+        restoran.getListMenu().add(menu);
 
-        model.addAttribute("menu", menu);
+        model.addAttribute("restoran", restoran);
+        model.addAttribute("idRestoran", idRestoran);
 
         return "form-add-menu";
     }
 
-    @RequestMapping(value = "menu/add", method = RequestMethod.POST)
-    private String addProductSubmit(@ModelAttribute MenuModel menu, Model model){
-        menuService.addMenu(menu);
-        model.addAttribute("nama", menu.getNama());
+    // API yang digunakan ketika menambah row
+    @RequestMapping(value = "/menu/add/{idRestoran}", method = RequestMethod.POST, params = {"addRow"})
+    private String addRow(@PathVariable(value = "idRestoran") Long idRestoran, @ModelAttribute RestoranModel restoran, Model model){
+        MenuModel menu = new MenuModel();
+        restoran.getListMenu().add(menu);
+
+        model.addAttribute("restoran", restoran);
+        model.addAttribute("idRestoran", idRestoran);
+
+        return "form-add-menu";
+    }
+
+    // API yang digunakan ketika menghapus row
+    @RequestMapping(value = "/menu/add/{idRestoran}", method = RequestMethod.POST, params = {"removeRow"})
+    private String removeRow(@PathVariable(value = "idRestoran") Long idRestoran, @ModelAttribute RestoranModel restoran, Model model, HttpServletRequest request){
+        Integer rowId = Integer.valueOf(request.getParameter("removeRow"));
+        restoran.getListMenu().remove(rowId.intValue());
+
+        model.addAttribute("idRestoran", idRestoran);
+        model.addAttribute("restoran", restoran);
+
+        return "form-add-menu";
+
+    }
+
+    @RequestMapping(value = "menu/add/{idRestoran}", method = RequestMethod.POST, params = {"add"})
+    private String addProductSubmit(@PathVariable(value = "idRestoran") Long idRestoran, @ModelAttribute RestoranModel restoran, ModelMap model){
+        RestoranModel oldRestoran = restoranService.getRestoranByIdRestoran(idRestoran).get();
+        model.addAttribute("idRestoran", idRestoran);
+        for(MenuModel menu : restoran.getListMenu()){
+            menu.setRestoran(oldRestoran);
+            menuService.addMenu(menu);
+        }
+        model.clear();
 
         return "add-menu";
     }
@@ -61,16 +98,11 @@ public class MenuController {
     }
 
     //Delete Menu
-    @RequestMapping(value = "menu/delete/{id}", method = RequestMethod.GET)
-    public String deleteMenuPage(@PathVariable Long id, @ModelAttribute MenuModel menu, Model model){
-        MenuModel deleteMenu = menuService.getMenuByIdMenu(id).get();
-        if (deleteMenu != null){
-            model.addAttribute("menu", deleteMenu.getNama());
+    @RequestMapping(value = "menu/delete", method = RequestMethod.POST)
+    private String delete(@ModelAttribute RestoranModel restoran, Model model){
+        for (MenuModel menu : restoran.getListMenu()){
             menuService.deleteMenu(menu);
-
-            return "delete-menu";
-        }else{
-            return "error";
         }
+        return "delete-menu";
     }
 }

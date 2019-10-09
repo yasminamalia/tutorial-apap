@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Title</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
+
 <body>
+<nav th:replace="fragments/fragment :: navbar (title='Change Restoran')"></nav>
 <h2 th:text="'Restoran dengan nama '+ ${restoran.nama} + ' berhasil diubah'"></h2>
 </body>
 </html>

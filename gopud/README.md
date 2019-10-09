@@ -19,7 +19,7 @@ Pertanyaan 2: Method addRestoranPage memakai RequestMethod GET, hal ini dikarena
 
 Pertanyaan 3: JPA Repository berfungsi untuk persisting objek java ke dalam database, mengakses objek, melakukan define pada data, dan query data.
 
-Pertanyaan 4:
+Pertanyaan 4: 
 * Pada RetoranModel
     @OneToMany(mappedBy = "restoran", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<MenuModel> listMenu;
@@ -41,3 +41,16 @@ Ketika 2 entitas memiliki hubungan seperti OneToMany, ketika sebuah entitas dipa
 Ketika 2 entitas memiliki hubungan seperti ManyToOne, ketika sebuah entitas dipanggil makan entitas yang lain pasti ikut dipanggil juga. Misalnya ketika sistem menampilkan menu, maka restoran yang memiliki menu tersebut juga akan ditampilkan.
 * CascadeType.ALL
 Ketika 2 entitas memiliki hubungan, ketika suatu entitas mengalami perubahan maka entitas lain juga akan berubah.
+
+## Tutorial 5
+Pertanyaan 1 :
+* Saya belajar mengenai bagaimana membuat fragment pada thymeleaf menjadi dinamis dengan melakukan reuse kode.
+* Tahapan: Pertama saya mendefinisikan variabel 'title' pada navbar di fragment.html yang mana nantinya variabel ini akan di-replace sesuai dengan title yang saya tulis di navbar pada body di tiap-tiap html.
+
+Pertanyaan 2 :
+* Saya belajar mengenai cara menggunakan method POST dengan params, menambahkan row pada form menu, dan menghapus row pada form menu.
+* Tahapan: Pertama saya mengubah sedikit method add menu. Lalu saya membuat method addRow dan removeRow. Kemudian saya mengubah view form add menu di html agar dapat menambah dan menghapus row sesuai index.
+
+Pertanyaan 3 : th:include menambahkan konten dari specified fragment pada host tag (kecuali tag fragment) sedangkan th:replacement mengganti host tag dengan konten milik fragment (termasuk tag fragment)
+
+Pertanyaan 4 : th:object digunakan di dalam tag form. th:object akan mendefinisikan variabel yang akan digunakan untuk memanggil objek ke dalam form yang kita buat.
