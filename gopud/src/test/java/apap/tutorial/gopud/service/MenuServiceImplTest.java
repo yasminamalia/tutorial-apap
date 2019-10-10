@@ -12,13 +12,13 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import javax.validation.constraints.Null;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -81,6 +81,25 @@ public class MenuServiceImplTest {
 
     @Test
     public void whenChangeMenuCalledItShouldChangeMenu(){
+            MenuModel updatedData = new MenuModel();
+            updatedData.setId(Long.valueOf(1));
+            updatedData.setNama("kebab");
+            updatedData.setDeskripsi("kebab daging");
+            updatedData.setHarga(BigInteger.valueOf(28000));
+            updatedData.setDurasiMasak(10);
+
+            when(menuDB.findById(1L)).thenReturn(Optional.of(updatedData));
+            when(menuService.changeMenu(updatedData)).thenReturn(updatedData);
+
+            MenuModel dataFromServiceCall = menuService.changeMenu(updatedData);
+            assertEquals("kebab", dataFromServiceCall.getNama());
+            assertEquals("kebab daging",dataFromServiceCall.getDeskripsi());
+            assertEquals(BigInteger.valueOf(28000), dataFromServiceCall.getHarga());
+            assertEquals(Integer.valueOf(10), dataFromServiceCall.getDurasiMasak());
+    }
+
+    @Test
+    public void whenMenuIsNotAvailableChangeMenuShouldThrowNullPointerException(){
         MenuModel updatedData = new MenuModel();
         updatedData.setId(Long.valueOf(1));
         updatedData.setNama("kebab");
@@ -89,13 +108,10 @@ public class MenuServiceImplTest {
         updatedData.setDurasiMasak(10);
 
         when(menuDB.findById(1L)).thenReturn(Optional.of(updatedData));
-        when(menuService.changeMenu(updatedData)).thenReturn(updatedData);
+        when(menuService.changeMenu(updatedData)).thenThrow(NullPointerException.class);
 
         MenuModel dataFromServiceCall = menuService.changeMenu(updatedData);
-        assertEquals("kebab", dataFromServiceCall.getNama());
-        assertEquals("kebab daging",dataFromServiceCall.getDeskripsi());
-        assertEquals(BigInteger.valueOf(28000), dataFromServiceCall.getHarga());
-        assertEquals(Integer.valueOf(10), dataFromServiceCall.getDurasiMasak());
+        assertEquals(null, dataFromServiceCall);
     }
 
     @Test
