@@ -42,7 +42,7 @@ Ketika 2 entitas memiliki hubungan seperti ManyToOne, ketika sebuah entitas dipa
 * CascadeType.ALL
 Ketika 2 entitas memiliki hubungan, ketika suatu entitas mengalami perubahan maka entitas lain juga akan berubah.
 
-## Tutorial 5
+## Tutorial 4
 Pertanyaan 1 :
 * Saya belajar mengenai bagaimana membuat fragment pada thymeleaf menjadi dinamis dengan melakukan reuse kode.
 * Tahapan: Pertama saya mendefinisikan variabel 'title' pada navbar di fragment.html yang mana nantinya variabel ini akan di-replace sesuai dengan title yang saya tulis di navbar pada body di tiap-tiap html.
@@ -54,3 +54,19 @@ Pertanyaan 2 :
 Pertanyaan 3 : th:include menambahkan konten dari specified fragment pada host tag (kecuali tag fragment) sedangkan th:replacement mengganti host tag dengan konten milik fragment (termasuk tag fragment)
 
 Pertanyaan 4 : th:object digunakan di dalam tag form. th:object akan mendefinisikan variabel yang akan digunakan untuk memanggil objek ke dalam form yang kita buat.
+
+## Tutorial 5
+Pertanyaan 1 : ![view test](view-test.png)
+* Given: line 113-114. Pada baris 113 dilakukan inisiasi model restoran dan 114 dilakukan pengembalian data yang telah kita buat tadi. 
+* When: line 116-120. Pada baris-baris tersebut diberikan kondisi seperti apa yang akan dilakukan testing
+* Then: line 122. Pada baris ini dilakukan verifikasi atas hasil yang diharapkan dari testing kondisi pada baris 116-120
+
+Pertanyaan 2 : Line coverage hanya meng-cover statement yang bernilai true dan tidak dapat meng-cover logic statement. Selain itu line-coverage menghitung berapa baris kode yang tercover oleh test. Sedangkan logic coverage mengecek apakah semua fungsionalitas dari kode sudah tercover oleh test yang kita buat.
+
+Pertanyaan 3 : Keadaan ideal bersifat relatif, misalnya untuk TDD yang ideal adalah membuat test terlebih dahulu baru membuat kode yang sesuai dengan tes yang sudah dibuat. Akan tetapi sebenarnya kita dapat membuat kode terlebih dahulu. Risiko yang biasanya terjadi adalah ada fungsionalitas yang mungkin terlewat dalam pembuatan program.
+
+Pertanyaan 4 : Main class spring tidak diikutsertakan dalam perhitungan coverage karena pada tutorial ini hanya akan dilakukan test pada service dan controller, bukan pada keseluruhan aplikasi. Dalam melakukan coverage analysis, kita hanya fokus terhadap class yang akan di-cover oleh unit test. Contohnya pada tutorial ini adalah class controller dan services. Jika sebuah class tidak di-cover dengan unit test, maka perlu untuk dilakukan exclude pada class yang tidak related tersebut.
+
+Before & After Test View
+sebelum ![sebelum](sebelum.png)
+sesudah ![sesudah](sesudah.png)
