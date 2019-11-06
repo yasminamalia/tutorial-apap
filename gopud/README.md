@@ -70,3 +70,13 @@ Pertanyaan 4 : Main class spring tidak diikutsertakan dalam perhitungan coverage
 Before & After Test View
 sebelum ![sebelum](sebelum.png)
 sesudah ![sesudah](sesudah.png)
+
+## Tutorial 6
+Pertanyaan 1 :
+* Postman adalah sebuah aplikasi (berupa plugin) untuk browser chrome sebagai REST Client yang digunakan untuk uji coba REST API yang telah kita buat.
+* Postman merupakan tool wajib bagi para API developer. Fungsi utama dari Postman adalah sebagai GUI API caller. Selain itu Postman juga berfungsi untuk sharing collection API for documentation, testing API, realtime collaboration team, monitoring API, dan integration.
+* Postman pertama kali muncul dalam bentuk add on Chrome, akan tetapi sekarang sudah menjadi aplikasi native.
+
+Pertanyaan 2 : Anotasi @JsonIgnoreProperties dapat digunakan untuk menekan serialisasi properti (selama serialisasi), atau mengabaikan pemrosesan properti JSON yang dibaca (saat deserialisasi)
+
+Pertanyaan 3 : ResponseEntity mewakili seluruh respons HTTP (kode status, header, body). Sehingga kita dapat menggunakannya untuk konfigurasi response HTTP sepenuhnya.
