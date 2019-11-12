@@ -18,8 +18,20 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
-    private String addUserSubmit(@ModelAttribute UserModel user){
-        userService.addUser(user);
+    private String addUserSubmit(@ModelAttribute UserModel user, PasswordModel password, Model model){
+        String pass = password.getPassword();
+        String confirmPass = password.getConfirmPassword();
+
+        if(userService.findByUsername(user.getUsername()) == null){
+            if(pass.equals(confirmPass)){
+                userService.addUser(user);
+                model.addAttribute("message", "User has added to the database");
+            }else{
+                model.addAttribute("message", "Password doesn't match");
+            }
+        }else{
+            model.addAttribute("message", "Username has already taken");
+        }
         return "home";
     }
 
