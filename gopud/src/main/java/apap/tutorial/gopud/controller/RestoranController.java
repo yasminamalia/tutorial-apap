@@ -25,10 +25,10 @@ public class RestoranController {
     @Autowired
     private MenuService menuService;
 
-    @RequestMapping("/")
-    public String home() {
-        return "home";
-    }
+//    @RequestMapping("/")
+//    public String home() {
+//        return "home";
+//    }
 
     //URL mapping yang digunakan untuk mengakses halaman add restoran
     @RequestMapping(value = "/restoran/add", method = RequestMethod.GET)

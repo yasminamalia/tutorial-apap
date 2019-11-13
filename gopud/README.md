@@ -80,3 +80,17 @@ Pertanyaan 1 :
 Pertanyaan 2 : Anotasi @JsonIgnoreProperties dapat digunakan untuk menekan serialisasi properti (selama serialisasi), atau mengabaikan pemrosesan properti JSON yang dibaca (saat deserialisasi)
 
 Pertanyaan 3 : ResponseEntity mewakili seluruh respons HTTP (kode status, header, body). Sehingga kita dapat menggunakannya untuk konfigurasi response HTTP sepenuhnya.
+
+##Tutorial 7
+Pertanyaan 1 :
+* Otentikasi menentukan apakah seorang person adalah user atau bukan untuk dapat mengakses sistem. Sedangkan otorisasi menentukan permission apa yang dimiliki oleh user dalam mengakses sebuah resource di dalam sistem.
+* Implementasi otentikasi dilakukan ketika user melakukan login. Sistem akan menentukan apakah person adalah user dengan method configAuthentication di WebSecurityConfig.java. Autentikasi juga ditentukan menggunakan interface UserDetailsService milik spring security. Sistem juga akan memvalidasi apakah data person yang dimasukkan ketika login sama dengan data yang dimiliki oleh sistem menggunakan method loadUserByUsername.
+* Implementasi otorisasi diilakukan setelah user melakukan login dan mendapatkan user role. Sistem akan menentukan resource apa saja di dalam sistem yang dimiliki oleh user tersebut. Pada WebSecurityConfig.java method configure akan menentukan otorisasi apa yang dimiliki oleh user berdasarkan role-nya. Misalnya hanya user dengan role admin yan dapat melakukan penambahan user, selain role tersebut tidak boleh.
+
+Pertanyaan 2 : BCryptPasswordEncoder adalah sebuah interface yang disediakan oleh spring security untuk membuat encoding pada password menggunakan metode slow hashing algorithm. Hal ini bertujuan untuk "menyembunyikan" password pada database, karena password tidak boleh ditampilkan secara eksplisit. Selain itu interface ini juga dapat digunakan untuk melakukan password comparison.
+
+Pertanyaan 3 :
+* Universally Unique Identifier (UUID) adalah sebuah 128 bit long value yang unik dan terdiri dari hex digits dengan 4 char untuk setiap digit serta 4 "-" simbol yang dapat digunakan untuk berbagai keperluan. Total character UUID adalah 36.
+* UUID digunakan di UserModel.java untuk menghasilkan id user yang unik.
+
+Pertanyaan 4 : Class UserDetailsServiceImpl.java merupakan implementasi dari interface UserDetailsService yang dimiliki oleh spring security. Kelas ini berbeda dengan UserService atau RoleService yabg merupakan implementasi dari interface aplikasi ini sendiri. Kita memerlukan class tersebut untuk menjalankan proses autentikasi. Salah satu methodnya yakni loadUserByUsername akan mencari tahu apakah person yang melakukan login merupakan user sistem atau bukan.

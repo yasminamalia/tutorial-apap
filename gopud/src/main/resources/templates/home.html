@@ -12,19 +12,71 @@
 <nav th:replace="fragments/fragment :: navbar (title='Home')"></nav>
 
 <div class="container-fluid">
+    <h2 th:text="'Hello '+${#httpServletRequest.remoteUser}+' !'">Login as</h2>
     <h2> Selamat datang di GOPUD! </h2>
-    <button class="btn btn-primary">
-            <a th:href="@{restoran/view-all}" style="color: white"> View All Restoran </a>
-    </button>
+
     <hr>
+    <button class="btn btn-primary">
+        <a th:href="@{restoran/view-all}" style="color: white"> View All Restoran </a>
+    </button>
+
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Tambah User Baru</div>
+                <div class="card-body">
+                    <div th:if="${param.error}">
+                        <span style="color: red">Password</span>
+                    </div>
+                    <form th:action="@{/user/addUser}" method="POST">
+                        <label>User Name</label>
+                        <input type="text" name="username" class="form-control"/>
+
+                        <label>Password</label>
+                        <input type="password" name="password" pattern="(?=.[a-z)(?=.[A-Z]).{8,}"
+                               title="Must contain at least one number and letter, and at least 8 or more characters"
+                               class="form-control"/>
+
+                        <label>Role</label>
+                        <select name="role" class="form-control">
+                            <option selected value="">-- Pilih Role --</option>
+                            <option th:each="roleAvailable : ${listRole}" th:value="${roleAvailable.id}"
+                                    th:text="${roleAvailable.role}"></option>
+                        </select>
+
+                        <br>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">Ganti Password</div>
+                <div class="card-body">
+                    <p>Fitur untuk mengganti password</p>
+                    <button class="btn btn-primary text-white">
+                        <a th:href="@{/user/updatePassword}">Ganti Password</a>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
     <div class="row">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">Tambah Restoran</div>
                     <div class="card-body">
                         <p>Fitur untuk menambah restoran</p>
-                        <button class="btn btn-primary">
-                            <a th:href="@{/restoran/add}" style="color: white"> Tambah Restoran</a>
+                        <button class="btn btn-primary text-white">
+                            <a th:href="@{/restoran/add}"> Tambah Restoran</a>
                         </button>
                     </div>
                 </div>
