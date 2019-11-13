@@ -94,3 +94,72 @@ Pertanyaan 3 :
 * UUID digunakan di UserModel.java untuk menghasilkan id user yang unik.
 
 Pertanyaan 4 : Class UserDetailsServiceImpl.java merupakan implementasi dari interface UserDetailsService yang dimiliki oleh spring security. Kelas ini berbeda dengan UserService atau RoleService yabg merupakan implementasi dari interface aplikasi ini sendiri. Kita memerlukan class tersebut untuk menjalankan proses autentikasi. Salah satu methodnya yakni loadUserByUsername akan mencari tahu apakah person yang melakukan login merupakan user sistem atau bukan.
+
+##Tutorial 8
+Latihan 1 : Pada latihan 1 saya menambahkan condition di mana code tersebut mengecek apabila item belum pernah diklik maka checkbox tidak akan muncul dan apabila sudah diklik maka checkbox akan muncul di bagian my favorites
+```checked ? <input type="checkbox" checked={checked} onChange={handleChange} /> : null```
+
+Latihan 2 : Untuk latihan 2 saya membuat dua handleItem berbeda. Satu untuk menu dan satu untuk favorites. Untuk menu, saya membuat kondisinya hanya bisa push item (menambahkan) saja. Sedangkan untuk favorites saya membuat kondisinya hanya bisa untuk menghapus saja.
+*Menu :
+``` handleItemMenu = item => {
+    const newItems = [...this.state.favItems];
+    const newItem = {...item};
+    newItems.push(newItem);
+    // schedule setState to update state with new favItems
+    this.setState({favItems: newItems});
+  };```
+*Favorites :
+```  handleItemFav = item => {
+      const newItems = [...this.state.favItems];
+      const newItem = {...item};
+      // find index of item with id
+      const targetInd = newItems.findIndex(it => it.id === newItem.id);
+      newItems.splice(targetInd, 1);
+      // schedule setState to update state with new favItems
+      this.setState({favItems: newItems});
+  }```
+
+Latihan 3 : Saya menambahkan visibility pada state yang mana visibility tersebut menunjukkan apakah favItems terlihat atau tidak. Visibility dipanggil pada toggleFavorite. Ketika checkbox Show My Favorites diklik maka toggleFavorite dijalankan. toggleFavorite akan membuat visibility akan berubah menjadi false atau true tergantung dari visibility state sebelumnya. Jika visibility true maka daftar favorites akan terlihat, sedangkan jika visibility false maka favorites akan disembunyikan.
+```state = {
+    favItems: [],
+      visibility: true
+  };```
+ 
+ ```toggleFavorite = ( )=> {this.setState((prevState)=>({visibility: !prevState.visibility}));}```
+ 
+ ```<input type="checkbox" onClick={this.toggleFavorite}/>Show My Favorites```
+ 
+```<div className="col-sm">
+	  {!this.state.visibility &&
+	  <List
+		  title="My Favorites"
+		  items={favItems}
+		  onItemClick={this.handleItemFav}
+	  />
+	  } </div>```
+
+Latihan 4 : Untuk latihan 4 saya membuat components baru bernama EmptyState. Isi dari components ini adalah kalimat yang menunjukkan bahwa belum terdapat favorit ketika list favorit kosong. Component ini dipanggil di component List. Pada component List, ketika panjang list = 0 maka List akan mengembalikan isi dari EmptyState.
+*EmptyState.js
+```import React from "react";
+
+export default function EmptyState(props) {
+    return(
+        <>
+            <h3 style={styles.heading}>Belum ada item yang dipilih</h3>
+            <h4>Klik salah satu item di daftar Menu</h4>
+        </>
+    );
+}
+            const styles = {
+                heading: {
+                fontFamily: "courier new"
+            }
+            };```
+*List.js
+```{items.length === 0 ? <EmptyState/> :
+		<div className="list-group">{}
+			{items.map(item => (
+				<Item key={item.id} item={item} onChange={onItemClick}/>
+			))}
+		</div>
+   }```
