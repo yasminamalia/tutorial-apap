@@ -1,12 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import AppFunc from "./AppFunc";
-// import App from './App';
+import AppFunc from "./AppFunc";
+import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Greeting } from "./Greeting";
 // import { Button } from './Button';
 import { List } from './List';
+
+ReactDOM.render(
+    <>
+            <div className="mt-5" />
+            <App />
+            <div className="mt-5 mb-5"/>
+            <AppFunc />
+            <div className="mt-5 mb-5"/>
+    </>,
+    document.getElementById("root")
+);
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://bit.ly/CRA-PWA
+serviceWorker.unregister();
+
+/**
+ * Latihan React.JS
+ */
 
 /**
  * 6
@@ -145,41 +165,41 @@ import { List } from './List';
 /**
  * 12
  */
-class Button extends React.Component {
-        render() {
-                return (
-                    <button>
-                            {this.props.text}
-                    </button>
-                );
-        }
-}
-
-// defaultProps goes here:
-Button.defaultProps {text: "I am a button" }
-
-ReactDOM.render(
-    <Button />,
-    document.getElementById('root')
-);
+// class Button extends React.Component {
+//         render() {
+//                 return (
+//                     <button>
+//                             {this.props.text}
+//                     </button>
+//                 );
+//         }
+// }
+//
+// // defaultProps goes here:
+// Button.defaultProps {text: "I am a button" }
+//
+// ReactDOM.render(
+//     <Button />,
+//     document.getElementById('root')
+// );
 
 /**
  * 13
  */
-class App extends React.Component {
-        // constructor method begins here:
-
-
-        render() {
-                return (
-                    <h1>
-                            Let's learn state
-                    </h1>
-                );
-        }
-}
-
-ReactDOM.render(
-    <App />,
-    document.getElementById("root")
-);
+// class App extends React.Component {
+//         // constructor method begins here:
+//
+//
+//         render() {
+//                 return (
+//                     <h1>
+//                             Let's learn state
+//                     </h1>
+//                 );
+//         }
+// }
+//
+// ReactDOM.render(
+//     <App />,
+//     document.getElementById("root")
+// );
