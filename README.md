@@ -197,3 +197,36 @@ export default function EmptyState(props) {
 			))}
 		</div>
    }```
+
+## Tutorial 9
+Pertanyaan 1 : untuk latihan 1 saya menambahkan baris kode pada submitAddRestoranHandler di bagian this.setState ```nama:"", alamat:"", rating:"", dan nomorTelepon :""```
+
+Pertanyaan 2 : 
+* async digunakan sebelum fungsi untuk menulis kode berbasis promise seakan-akan itu tersinkron tanpa memblokir thread utama.
+* await digunakan pada fungsi yang menggunakan async. Fungsi akan dihentikan sementara dg cara tidak memblokir sampai promise selesai. Jika promise terpenuhi, pengguna akan mendapatkan kembali value yang diinginkan. Jika promise ditolak, value yang ditolak akan dibuang.
+
+Pertanyaan 3 :
+* Do - 1 : Menambahkan baris kode pada Restoran.js
+![](screenshot/1a.png)
+![](screenshot/1b.png)
+* Do - 2 : Menjalankan aplikasi
+![](screenshot/2.png)
+* Do - 3 : Tampilan aplikasi dan console
+![](screenshot/3a.png)
+![](screenshot/3b.png)
+* Do - 4 : Menambahkan state isLoading
+![](screenshot/6.png)
+* Do - 5 : Menambahkan hadnler dan button untuk mengubah isi isLoading
+![](screenshot/7.png)
+* Do - 6 : Tampilan aplikasi dan console setelah ditambahkan state, handler, dan button isLoading
+![](screenshot/8a.png)
+![](screenshot/8b.png)
+* Do - 7 : Tampilan console setelah button isLoading diklik
+![](screenshot/9.png)
+
+Pertanyaan 4 :
+* componentDidMount : digunakan setelah component dirender. Pada tahap ini terjadi proses pemanggilan ajax dan perubahan isi state setelah proses ajax di panggil. Use case yang biasanya menggunakan method tersebut ketika component baru pertama kali dipanggil ke DOM.
+* shouldComponentUpdate : hanya akan dipanggil ketika props atau​ state dari sebuah Component berubah. Tugasnya adalah untuk menentukan apakah sebuah component akan di render ulang atau tidak. Method ini akan mengembalikan nilai boolean true & false, jika true maka component akan dirender ulang atau sebaliknya. Use case yang biasanya menggunakan lifecycle tersebut apabila mengubah props/state pada komponen.
+* componentDidUpdate : digunakan setelah component dirender dan ketika component mengalami perubahan model data. Fungsinya untuk manipulasi DOM dan request data.
+* componentWillReceiveProps : digunakan ketika terjadi perubahan pada props sebelum component di render. Fungsi ini akan dieksekusi bila state yang ada di component akan diupdate dengan nilai props yang baru.
+* componentWillUnmount : digunakan sebelum sebuah component dihapus dari DOM. 
