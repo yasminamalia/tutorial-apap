@@ -11,17 +11,40 @@ class Restorans extends Component{
         this.state = {
             restorans: [],
             isCreate: false,
-            // isEdit: false,
+            isEdit: false,
             isLoading: true,
+            isSearched: false,
             nama: "",
             alamat: "",
             nomorTelepon: "",
-            rating: ""
+            rating: "",
+            query: "",
+            filteredRestorans: []
         }
     }
 
+    handleInputChange = event => {
+        this.setState({ isSearched: true});
+        const query = event.target.value;
+
+        this.setState(prevState  => {
+            const filteredRestorans = prevState.restorans.filter(element => {
+                return element.nama.toLowerCase().includes(query.toLowerCase());
+            });
+            return{
+                query,
+                filteredRestorans
+            };
+        });
+    };
+
     componentDidMount() {
         this.loadRestorans();
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log("shouldComponentUpdate()");
+        return true;
     }
 
     loadRestorans = async () => {
@@ -43,7 +66,7 @@ class Restorans extends Component{
     }
 
     canceledHandler = () => {
-        this.setState({ isCreate: false });
+        this.setState({ isCreate: false, isEdit: false });
     }
 
     changeHandler = event => {
@@ -53,15 +76,62 @@ class Restorans extends Component{
     }
 
     submitAddRestoranHandler = event => {
-        event.prevenetDefault();
-        this.setState({ isLoading: true });
+        console.log("add");
+        event.preventDefault();
+        this.setState({
+            nama: "",
+            alamat: "",
+            rating: "",
+            nomorTelepon: "",
+            isLoading: true
+        });
         this.addRestoran();
+        this.canceledHandler();
+        console.log("berhasil ga?");
+    }
+
+    editRestoranHandler(restoran) {
+        this.setState({
+            isEdit: true,
+            idRestoran: restoran.idRestoran,
+            nama: restoran.nama,
+            nomorTelepon: restoran.nomorTelepon,
+            rating: restoran.rating,
+            alamat: restoran.alamat
+        })
+    }
+
+    submitEditRestoranHandler = event => {
+        console.log("editing")
+        event.preventDefault();
+        this.setState({
+            nama: "",
+            alamat: "",
+            rating: "",
+            nomorTelepon: "",
+            isLoading: true
+        });
+        this.editRestoran();
+        this.canceledHandler();
+    };
+
+    async editRestoran() {
+        const restoranToEdit = {
+            idRestoran: this.state.idRestoran,
+            nama: this.state.nama,
+            alamat: this.state.alamat,
+            nomorTelepon: this.state.nomorTelepon,
+            rating: this.state.rating
+        };
+
+        await axios.put("/restoran/" + this.state.idRestoran, restoranToEdit);
+        await this.loadRestorans();
         this.canceledHandler();
     }
 
     async addRestoran() {
         const restoranToAdd = {
-            nama: this.state.name,
+            nama: this.state.nama,
             alamat: this.state.alamat,
             nomorTelepon: this.state.nomorTelepon,
             rating: this.state.rating
@@ -71,12 +141,43 @@ class Restorans extends Component{
         await this.loadRestorans();
     }
 
+    async deleteRestoranHandler(restoranId) {
+        await axios.delete(`/restoran/${restoranId}`);
+        await this.loadRestorans();
+    }
 
     render() {
         console.log("render()");
+
+        const render = this.state.isSearched ?
+            <div>
+                {this.state.filteredRestorans.map(restoran =>
+                    <Restoran
+                        key = {restoran.idRestoran}
+                        nama = {restoran.nama}
+                        alamat = {restoran.alamat}
+                        nomorTelepon = {restoran.nomorTelepon}
+                        edit = {() => this.editRestoranHandler(restoran)}
+                        delete = {() => this.deleteRestoranHandler(restoran.idRestoran)}
+                    />
+                    )}
+            </div>
+            :
+            <div>
+                {this.state.restorans && this.state.restorans.map(restoran =>
+                    <Restoran
+                        key = {restoran.idRestoran}
+                        nama = {restoran.nama}
+                        alamat = {restoran.alamat}
+                        nomorTelepon = {restoran.nomorTelepon}
+                        edit = {() => this.editRestoranHandler(restoran)}
+                        delete = {() => this.deleteRestoranHandler(restoran.idRestoran)}
+                    />)}
+            </div>
+
         return(
             <React.Fragment>
-                <Modal show={this.state.isCreate}
+                <Modal show={this.state.isCreate || this.state.isEdit}
                        modalClosed={this.canceledHandler}>
                     {this.renderForm()}
                 </Modal>
@@ -89,22 +190,24 @@ class Restorans extends Component{
                         + Add New Restoran
                     </button>
                 </div>
+                <div className={classes.SearchLayout}>
+                    <form>
+                        <input className={classes.SearchRestoran}
+                            placeholder="Cari Restoran..."
+                            value={this.state.query}
+                            onChange={this.handleInputChange}
+                        />
+                    </form>
+                </div>
                 <div className={classes.Restorans}>
-                    {this.state.restorans &&
-                    this.state.restorans.map(restoran =>
-                    <Restoran
-                        key = {restoran.id}
-                        nama = {restoran.nama}
-                        alamat = {restoran.alamat}
-                        nomorTelepon = {restoran.nomorTelepon}
-                    />
-                    )}
+                    {render}
                 </div>
             </React.Fragment>
         );
     }
 
     renderForm(){
+        const { isEdit } = this.state;
         return(
             <form>
                 <input
@@ -143,7 +246,9 @@ class Restorans extends Component{
                     onChange={this.changeHandler}
                 />
                 <Button btnType="Danger" onClick={this.canceledHandler}> Cancel </Button>
-                <Button btnType="Success" onClick={this.submitAddRestoranHandler}> Submit </Button>
+                <Button btnType="Success" onClick={isEdit ? this.submitEditRestoranHandler : this.submitAddRestoranHandler}>
+                    Submit
+                </Button>
             </form>
         );
     }

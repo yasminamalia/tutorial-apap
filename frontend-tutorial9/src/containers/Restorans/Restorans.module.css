@@ -35,3 +35,22 @@
     justify-items: right;
     padding-top: 20px;
 }
+
+.SearchRestoran {
+    background-color: #A0DB41;
+    outline: none;
+    cursor: pointer;
+    border: 2px solid #8186d5;
+    color: black;
+    font-family: inherit;
+    font-size: 1.2em;
+    padding: 10px 10px;
+    box-shadow: 2px 2px 2px #36622b;
+}
+
+.SearchLayout {
+    width: 50%;
+    margin: auto;
+    justify-items: right;
+    padding-top: 20px;
+}

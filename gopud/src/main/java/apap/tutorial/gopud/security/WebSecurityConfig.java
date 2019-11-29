@@ -13,23 +13,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
-@EnableWebSecurity
+//@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception{
         http
                 .authorizeRequests()
-                .antMatchers("/api/v1/**").permitAll()
-                .antMatchers("/css/**").permitAll()
-                .antMatchers("/js/**").permitAll()
-                .antMatchers("/restoran/**").hasAnyAuthority("MERCHANT")
-                .antMatchers("/user/addUser").hasAnyAuthority("ADMIN")
-                .anyRequest().authenticated()
-                .and()
-                .formLogin()
-                .loginPage("/login").permitAll()
-                .and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").permitAll();
+                .antMatchers("/api/v1/**").anonymous()
+//                .antMatchers("/css/**").permitAll()
+//                .antMatchers("/js/**").permitAll();
+//                .antMatchers("/restoran/**").hasAnyAuthority("MERCHANT")
+//                .antMatchers("/user/addUser").hasAnyAuthority("ADMIN")
+                .anyRequest().permitAll().and().csrf().disable();
+//                .and()
+//                .formLogin()
+//                .loginPage("/login").permitAll()
+//                .and()
+//                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login").permitAll();
     }
 
     @Bean
